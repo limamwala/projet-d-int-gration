@@ -1,14 +1,19 @@
 <?php
-$servername = "localhost";
-$username = "root"; // Remplacez par votre nom d'utilisateur MySQL
-$password = ""; // Remplacez par votre mot de passe MySQL
-$dbname = "recettes";
+$host = 'localhost';
+$db = 'recette_db';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
 
-// Créer une connexion
-$conn = new mysqli($servername, $username, $password, $dbname);
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+];
 
-// Vérifier la connexion
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+  $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (PDOException $e) {
+  die("Erreur de connexion : " . $e->getMessage());
 }
 ?>
